@@ -8,62 +8,69 @@ namespace BinarySearchTree
 {
     /// <summary>
     /// UC1 - Insertion Operation
+    /// UC2 - Adding elements using size
     /// </summary>
     /// <typeparam name="T"></typeparam>
     class BSTOperations<T> where T : IComparable<T>
     {
         public T nodedata { get; set; }
-        public BSTOperations<T> leftnode { get; set; }
+        public BSTOperations<T> leftsubtree { get; set; }
 
-        public BSTOperations<T> rightnode { get; set; }
+        public BSTOperations<T> rightsubtree { get; set; }
 
         public BSTOperations(T data)
         {
             this.nodedata = data;
-            this.leftnode = null;
-            this.rightnode = null;
+            this.leftsubtree = null;
+            this.rightsubtree = null;
         }
-        int leftnodecount = 0, rightnodecount = 0;
+        int leftsubtreecount = 0, rightsubtreecount = 0;
 
         public void Insert(T item)
         {
             T CurrNodeVal = this.nodedata;
             if ((CurrNodeVal.CompareTo(item)) > 0)
             {
-                if (this.leftnode == null)
+                if (this.leftsubtree == null)
                 {
-                    this.leftnode = new BSTOperations<T>(item);
+                    this.leftsubtree = new BSTOperations<T>(item);
                 }
                 else
                 {
-                    this.leftnode.Insert(item);
+                    this.leftsubtree.Insert(item);
+                    leftsubtreecount++;
                 }
             }
             else
             {
-                if (this.rightnode == null)
+                if (this.rightsubtree == null)
                 {
-                    this.rightnode = new BSTOperations<T>(item);
+                    this.rightsubtree = new BSTOperations<T>(item);
                 }
                 else
                 {
-                    this.rightnode.Insert(item);
+                    this.rightsubtree.Insert(item);
+                    rightsubtreecount++;
                 }
             }
+        }
+        public void Size()
+        {
+            Console.WriteLine("Size " + " " + (1 + this.leftsubtreecount + this.rightsubtreecount));
         }
 
         public void Display()
         {
-            if (this.leftnode != null)
+            if (this.leftsubtree != null)
             {
-                this.leftnodecount++;
-                this.leftnode.Display();
+                this.leftsubtreecount++;
+                this.leftsubtree.Display();
             }
             Console.WriteLine(this.nodedata.ToString());
-            if (this.rightnode != null)
+            if (this.rightsubtree != null)
             {
-                this.rightnodecount++;
-                this.rightnode.Display();
+                this.rightsubtreecount++;
+                this.rightsubtree.Display();
             }
         }
 
