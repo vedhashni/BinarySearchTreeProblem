@@ -9,10 +9,13 @@ namespace BinarySearchTree
     /// <summary>
     /// UC1 - Insertion Operation
     /// UC2 - Adding elements using size
+    /// UC3 - Searching
     /// </summary>
     /// <typeparam name="T"></typeparam>
     class BSTOperations<T> where T : IComparable<T>
     {
+        int leftsubtreecount = 0, rightsubtreecount = 0;
+        private bool founded;
         public T nodedata { get; set; }
         public BSTOperations<T> leftsubtree { get; set; }
 
@@ -24,7 +27,7 @@ namespace BinarySearchTree
             this.leftsubtree = null;
             this.rightsubtree = null;
         }
-        int leftsubtreecount = 0, rightsubtreecount = 0;
+        
 
         public void Insert(T item)
         {
@@ -57,6 +60,31 @@ namespace BinarySearchTree
         public void Size()
         {
             Console.WriteLine("Size " + " " + (1 + this.leftsubtreecount + this.rightsubtreecount));
+        }
+        public void Search(T element, BSTOperations<T> node)
+        {
+            if (node == null)
+            {
+                founded=false;
+            }
+            if (node.nodedata.Equals(element))
+            {
+                Console.WriteLine("Found the element in BST " + " " + node.nodedata);
+                founded = true;
+            }
+            else
+            {
+                Console.WriteLine("Current element is {0} in BST " + node.nodedata);
+            }
+            if (element.CompareTo(node.nodedata) < 0)
+            {
+                Search(element, node.leftsubtree);
+            }
+            if (element.CompareTo(node.nodedata) > 0)
+            {
+                Search(element, node.leftsubtree);
+            }
+            Console.WriteLine("{0}",founded);
         }
 
         public void Display()
